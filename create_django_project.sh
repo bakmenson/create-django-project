@@ -5,7 +5,6 @@ virtual_env=$2
 python_version=$3
 
 VIRTUALENV_PATTERN="^(.+)..created.+versions.(.+).$"
-VIRTUALENV_VERSION_PATTERN="versions.(.+).$"
 
 is_available_python_version=false
 is_available_virtualenv=false
