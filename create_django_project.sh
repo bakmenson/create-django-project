@@ -4,7 +4,7 @@ project_dir=$1
 virtual_env=$2
 python_version=$3
 
-VIRTUALENV_PATTERN="^[a-z-]+"
+VIRTUALENV_PATTERN="^(.+)..created.+versions.(.+).$"
 VIRTUALENV_VERSION_PATTERN="versions.(.+).$"
 
 is_available_python_version=false
@@ -23,7 +23,7 @@ if [[ $virtual_env != "" ]]; then
 
 	while read -r line; do
 		if [[ $line =~ ${VIRTUALENV_PATTERN} ]]; then
-			if [[ $virtual_env =~ ${BASH_REMATCH} ]]; then
+			if [[ $virtual_env =~ ${BASH_REMATCH[1]} ]]; then
 				#pyenv local $virtual_env || exit 1
 				#exit 0
 				echo ""
