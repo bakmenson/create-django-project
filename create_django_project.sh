@@ -1,51 +1,58 @@
 #!/bin/bash
 
-#project_dir=$1
-virtual_env=$1
-python_version=$2
+project_dir=$1
+virtual_env=$2
+python_version=$3
 
-VIRTUAL_ENV_PATTERN="^[a-z-]+"
+VIRTUALENV_PATTERN="^[a-z-]+"
+VIRTUALENV_VERSION_PATTERN="versions.(.+).$"
 
 is_available_python_version=false
-is_available_virtual_env=false
-
-if [[ $python_version != "" ]]; then
-	while read -r line; do
-		if [[ $line == $python_version ]]; then
-			is_available_python_version=true
-		fi
-	done < <(pyenv versions)
-
-	if ! $is_available_python_version; then
-		pyenv install $python_version
-		is_available_python_version=true
-	fi
-fi
+is_available_virtualenv=false
 
 #cd ../
-
+#
 #if [[ -d $project_dir ]]; then
 #	rm -rf $project_dir
 #fi
-
+#
 #mkdir $project_dir
 #cd $project_dir
 
 if [[ $virtual_env != "" ]]; then
-	is_available_virtual_env=true
+
 	while read -r line; do
-		if [[ $line =~ ${VIRTUAL_ENV_PATTERN} ]]; then
+		if [[ $line =~ ${VIRTUALENV_PATTERN} ]]; then
 			if [[ $virtual_env =~ ${BASH_REMATCH} ]]; then
-				#pyenv local $virtual_env
+				#pyenv local $virtual_env || exit 1
 				#exit 0
-				echo $virtual_env
+				echo ""
+				echo "Virtualenv" "'"$virtual_env"'" "is exists."
 			fi
 		fi
 	done < <(pyenv virtualenvs)
-fi
 
-if $is_available_python_version && $is_available_virtual_env; then
-	echo $is_available_python_version
-	echo $is_available_virtual_env
-	#pyenv virtualenv $python_version $virtual_env
+	if [[ $python_version != "" ]]; then
+		while read -r line; do
+			if [[ $line == $python_version ]]; then
+				is_available_python_version=true
+			fi
+		done < <(pyenv versions)
+
+		if ! $is_available_python_version; then
+			#{
+			#	pyenv install $python_version
+			#} || {
+			#	rm -rf $project_dir && exit 1
+			#}
+
+			is_available_python_version=true
+		fi
+	fi
+
+	if $is_available_python_version && ! $is_available_virtualenv; then
+		#pyenv virtualenv $python_version $virtual_env || exit 1
+		echo ""
+	fi
+
 fi
