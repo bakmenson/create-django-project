@@ -23,6 +23,7 @@ if [[ $virtual_env != "" ]]; then
 		if [[ $line =~ ${VIRTUALENV_PATTERN} ]]; then
 			pyenv_version=${BASH_REMATCH[2]}
 			if [[ $virtual_env =~ ${BASH_REMATCH[1]} ]]; then
+				is_available_virtualenv=true
 				echo "-----------------------------------------------------------"
 				echo "Virtualenv '"$virtual_env"' already exists ('"$pyenv_version"')."
 				echo ""
@@ -33,14 +34,16 @@ if [[ $virtual_env != "" ]]; then
 		fi
 	done < <(pyenv virtualenvs)
 
-	read -s -n 1 answer
+	if $is_available_virtualenv; then
+		read -s -n 1 answer
 
-	if [[ $answer == "" || $answer == "y" ]]; then
-		cd $project_dir
-		pyenv local $virtual_env && exit 0
-	else
-		rm -rf $project_dir
-		echo "Exit" && exit 1
+		if [[ $answer == "" || $answer == "y" ]]; then
+			cd $project_dir
+			pyenv local $virtual_env && exit 0
+		else
+			rm -rf $project_dir
+			echo "Exit" && exit 1
+		fi
 	fi
 
 	if [[ $python_version != "" ]]; then
@@ -54,6 +57,8 @@ if [[ $virtual_env != "" ]]; then
 			{
 				pyenv install $python_version
 			} || {
+				
+				echo "" && echo "Exit"
 				rm -rf $project_dir && exit 1
 			}
 
