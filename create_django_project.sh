@@ -15,8 +15,6 @@ if [[ -d $project_dir ]]; then
 	rm -rf $project_dir
 fi
 
-mkdir $project_dir
-
 if [[ $virtual_env != "" ]]; then
 
 	while read -r line; do
@@ -38,7 +36,7 @@ if [[ $virtual_env != "" ]]; then
 		read -s -n 1 answer
 
 		if [[ $answer == "" || $answer == "y" ]]; then
-			cd $project_dir
+			mkdir $project_dir && cd $project_dir
 			pyenv local $virtual_env && exit 0
 		else
 			rm -rf $project_dir
@@ -67,7 +65,8 @@ if [[ $virtual_env != "" ]]; then
 
 	if $is_available_python_version && ! $is_available_virtualenv; then
 		pyenv virtualenv $python_version $virtual_env
-		cd $project_dir && pyenv local $virtual_env
+		mkdir $project_dir && cd $project_dir
+		pyenv local $virtual_env
 		echo "" && echo "Done"
 		exit 0
 	fi
