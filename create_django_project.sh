@@ -37,8 +37,7 @@ if [[ $virtual_env != "" ]]; then
 	read -s -n 1 answer
 
 	if [[ $answer == "" || $answer == "y" ]]; then
-		pyenv local $virtual_env || rm -rf $project_dir && exit 1
-		exit 0
+		pyenv local $virtual_env && exit 0 || rm -rf $project_dir && exit 1
 	else
 		echo "Exit" && exit 1
 	fi
