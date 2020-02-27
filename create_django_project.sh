@@ -22,14 +22,26 @@ if [[ $virtual_env != "" ]]; then
 
 	while read -r line; do
 		if [[ $line =~ ${VIRTUALENV_PATTERN} ]]; then
+			pyenv_version=${BASH_REMATCH[2]}
 			if [[ $virtual_env =~ ${BASH_REMATCH[1]} ]]; then
-				#pyenv local $virtual_env || exit 1
-				#exit 0
+				echo "-----------------------------------------------------------"
+				echo "Virtualenv '"$virtual_env"' already exists ('"$pyenv_version"')."
 				echo ""
-				echo "Virtualenv" "'"$virtual_env"'" "is exists."
+				echo "Set virtualenv '"$virtual_env"' for project dir with '"$pyenv_version"'?"
+				echo "Press 'Enter' or 'y' to continue or any key to exit."
+				echo "-----------------------------------------------------------"
 			fi
 		fi
 	done < <(pyenv virtualenvs)
+
+	read -s -n 1 answer
+
+	if [[ $answer == "" || $answer == "y" ]]; then
+		pyenv local $virtual_env || rm -rf $project_dir && exit 1
+		exit 0
+	else
+		echo "Exit" && exit 1
+	fi
 
 	if [[ $python_version != "" ]]; then
 		while read -r line; do
