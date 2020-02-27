@@ -57,7 +57,6 @@ if [[ $virtual_env != "" ]]; then
 			{
 				pyenv install $python_version
 			} || {
-				
 				echo "" && echo "Exit"
 				rm -rf $project_dir && exit 1
 			}
@@ -69,6 +68,7 @@ if [[ $virtual_env != "" ]]; then
 	if $is_available_python_version && ! $is_available_virtualenv; then
 		pyenv virtualenv $python_version $virtual_env
 		cd $project_dir && pyenv local $virtual_env
+		echo "" && echo "Done"
 		exit 0
 	fi
 fi
