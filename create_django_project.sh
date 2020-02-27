@@ -9,14 +9,13 @@ VIRTUALENV_PATTERN="^(.+)..created.+versions.(.+).$"
 is_available_python_version=false
 is_available_virtualenv=false
 
-#cd ../
-#
-#if [[ -d $project_dir ]]; then
-#	rm -rf $project_dir
-#fi
-#
-#mkdir $project_dir
-#cd $project_dir
+cd ../
+
+if [[ -d $project_dir ]]; then
+	rm -rf $project_dir
+fi
+
+mkdir $project_dir
 
 if [[ $virtual_env != "" ]]; then
 
@@ -37,6 +36,7 @@ if [[ $virtual_env != "" ]]; then
 	read -s -n 1 answer
 
 	if [[ $answer == "" || $answer == "y" ]]; then
+		cd $project_dir
 		pyenv local $virtual_env && exit 0
 	else
 		rm -rf $project_dir
@@ -51,19 +51,19 @@ if [[ $virtual_env != "" ]]; then
 		done < <(pyenv versions)
 
 		if ! $is_available_python_version; then
-			#{
-			#	pyenv install $python_version
-			#} || {
-			#	rm -rf $project_dir && exit 1
-			#}
+			{
+				pyenv install $python_version
+			} || {
+				rm -rf $project_dir && exit 1
+			}
 
 			is_available_python_version=true
 		fi
 	fi
 
 	if $is_available_python_version && ! $is_available_virtualenv; then
-		#pyenv virtualenv $python_version $virtual_env || exit 1
-		echo ""
+		pyenv virtualenv $python_version $virtual_env
+		cd $project_dir && pyenv local $virtual_env
+		exit 0
 	fi
-
 fi
