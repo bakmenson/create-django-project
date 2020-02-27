@@ -11,8 +11,28 @@ is_available_virtualenv=false
 
 cd ../
 
-if [[ -d $project_dir ]]; then
-	rm -rf $project_dir
+if [[ $project_dir == "" ]]; then
+	echo "----------------------------------------------------------------"
+	echo "You did not specify project dir, virtual env and python version."
+	echo "----------------------------------------------------------------"
+	exit 1
+else
+	if [[ -d $project_dir ]]; then
+		echo "----------------------------------------------------"
+		echo "Directory '"$project_dir"' is exists."
+		echo "Remove directory '"$project_dir"?'"
+		echo "Press 'Enter' or 'y' to delete or any key to exit."
+		echo "----------------------------------------------------"
+
+		read -s -n 1 delete
+
+		if [[ $delete == "" || $delete == "y" ]]; then
+			rm -rf $project_dir
+			echo "Directory removed."
+		else
+			echo "Exit" && exit 1
+		fi
+	fi
 fi
 
 if [[ $virtual_env != "" ]]; then
@@ -70,4 +90,9 @@ if [[ $virtual_env != "" ]]; then
 		echo "" && echo "Done"
 		exit 0
 	fi
+else
+	echo "---------------------------------------------------"
+	echo "You did not specify virtual env and python version."
+	echo "---------------------------------------------------"
+	exit 1
 fi
