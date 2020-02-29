@@ -1,1 +1,1 @@
-# Creating a django project using pyenv.
+# Creating a django project using pyenv and deleting.
