@@ -57,7 +57,7 @@ if [[ $virtual_env != "" ]]; then
 
 		if [[ $answer == "" || $answer == "y" ]]; then
 			mkdir $project_dir && cd $project_dir
-			pyenv local $virtual_env && exit 0
+			pyenv local $virtual_env
 		else
 			rm -rf $project_dir
 			echo "Exit" && exit 1
@@ -88,7 +88,6 @@ if [[ $virtual_env != "" ]]; then
 		mkdir $project_dir && cd $project_dir
 		pyenv local $virtual_env
 		echo "" && echo "Done"
-		exit 0
 	fi
 else
 	echo "---------------------------------------------------"
