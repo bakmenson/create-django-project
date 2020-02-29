@@ -1,1 +1,1 @@
-# create-django-project
+# Creating django project using pyenv.
