@@ -95,3 +95,22 @@ else
 	echo "---------------------------------------------------"
 	exit 1
 fi
+
+django_project_name="${project_dir//'-'/$'_'}"
+
+pip install --upgrade pip
+
+{
+	pip freeze | grep Django
+} || {
+	pip install django
+}
+
+django-admin startproject $django_project_name
+
+mv $django_project_name/manage.py ./
+mv $django_project_name/$django_project_name/* $django_project_name
+rm -rf $django_project_name/$django_project_name/
+
+python manage.py migrate
+python manage.py createsuperuser
