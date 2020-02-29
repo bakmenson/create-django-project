@@ -20,7 +20,7 @@ else
 	if [[ -d $project_dir ]]; then
 		echo "----------------------------------------------------"
 		echo "Directory '"$project_dir"' exists."
-		echo "Remove directory '"$project_dir"?'"
+		echo "Remove directory '"$project_dir"'?"
 		echo "Press 'Enter' or 'y' to delete or any key to exit."
 		echo "----------------------------------------------------"
 
