@@ -11,13 +11,12 @@ is_available_virtualenv=false
 
 separator() { printf %$1s | tr " " "-" && echo ""; }
 
+missed_script_args() { separator $2 && echo $1 && separator $2 && exit 1; }
+
 cd ../
 
 if [[ $project_dir == "" ]]; then
-	separator 64
-	echo "You did not specify project dir, virtual env and python version."
-	separator 64
-	exit 1
+	missed_script_args "You did not specify project dir, virtual env and python version." 64
 else
 	if [[ -d $project_dir ]]; then
 		separator 50
@@ -92,10 +91,7 @@ if [[ $virtual_env != "" ]]; then
 		echo "" && echo "Done"
 	fi
 else
-	separator 51
-	echo "You did not specify virtual env and python version."
-	separator 51
-	exit 1
+	missed_script_args "You did not specify virtual env and python version." 51
 fi
 
 django_project_name="${project_dir//'-'/$'_'}"
