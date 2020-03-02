@@ -9,20 +9,22 @@ VIRTUALENV_PATTERN="^(.+)..created.+versions.(.+).$"
 is_available_python_version=false
 is_available_virtualenv=false
 
+separator() { printf %$1s | tr " " "-" && echo ""; }
+
 cd ../
 
 if [[ $project_dir == "" ]]; then
-	echo "----------------------------------------------------------------"
+	separator 64
 	echo "You did not specify project dir, virtual env and python version."
-	echo "----------------------------------------------------------------"
+	separator 64
 	exit 1
 else
 	if [[ -d $project_dir ]]; then
-		echo "--------------------------------------------------"
+		separator 50
 		echo "Directory '"$project_dir"' exists."
 		echo "Remove directory '"$project_dir"'?"
 		echo "Press 'Enter' or 'y' to delete or any key to exit."
-		echo "--------------------------------------------------"
+		separator 50
 
 		read -s -n 1 delete
 
@@ -42,12 +44,12 @@ if [[ $virtual_env != "" ]]; then
 			pyenv_version=${BASH_REMATCH[2]}
 			if [[ $virtual_env =~ ${BASH_REMATCH[1]} ]]; then
 				is_available_virtualenv=true
-				echo "-----------------------------------------------------------"
+				separator 60
 				echo "Virtualenv '"$virtual_env"' already exists ('"$pyenv_version"')."
 				echo ""
 				echo "Set virtualenv '"$virtual_env"' for project dir with '"$pyenv_version"'?"
 				echo "Press 'Enter' or 'y' to continue or any key to exit."
-				echo "-----------------------------------------------------------"
+				separator 60
 			fi
 		fi
 	done < <(pyenv virtualenvs)
@@ -90,9 +92,9 @@ if [[ $virtual_env != "" ]]; then
 		echo "" && echo "Done"
 	fi
 else
-	echo "---------------------------------------------------"
+	separator 51
 	echo "You did not specify virtual env and python version."
-	echo "---------------------------------------------------"
+	separator 51
 	exit 1
 fi
 
