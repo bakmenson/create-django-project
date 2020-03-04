@@ -19,11 +19,9 @@ if [[ $project_dir == "" ]]; then
 	missed_script_args "You did not specify project dir, virtual env and python version." 64
 else
 	if [[ -d $project_dir ]]; then
-		separator 50
-		echo "Directory '"$project_dir"' exists."
-		echo "Remove directory '"$project_dir"'?"
-		echo "Press 'Enter' or 'y' to delete or any key to exit."
-		separator 50
+		missed_script_args "Directory '"$project_dir"' exists.\n\
+			Remove directory '"$project_dir"'?\n\
+			Press 'Enter' or 'y' to delete or any key to exit." 50
 
 		read -s -n 1 delete
 
@@ -43,12 +41,10 @@ if [[ $virtual_env != "" ]]; then
 			pyenv_version=${BASH_REMATCH[2]}
 			if [[ $virtual_env =~ ${BASH_REMATCH[1]} ]]; then
 				is_available_virtualenv=true
-				separator 60
-				echo "Virtualenv '"$virtual_env"' already exists ('"$pyenv_version"')."
-				echo ""
-				echo "Set virtualenv '"$virtual_env"' for project dir with '"$pyenv_version"'?"
-				echo "Press 'Enter' or 'y' to continue or any key to exit."
-				separator 60
+				missed_script_args "Virtualenv '"$virtual_env"' already exists \
+					('"$pyenv_version"').\nSet virtualenv '"$virtual_env"' for \
+					project dir with '"$pyenv_version"'?\nPress 'Enter' or 'y' \
+					to continue or any key to exit." 60
 			fi
 		fi
 	done < <(pyenv virtualenvs)
