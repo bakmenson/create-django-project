@@ -19,9 +19,9 @@ if [[ $project_dir == "" ]]; then
 	echo_message "You did not specify project dir, virtual env and python version." 64
 else
 	if [[ -d $project_dir ]]; then
-		echo_message "Directory '"$project_dir"' exists.\n\
-			Remove directory '"$project_dir"'?\n\
-			Press 'Enter' or 'y' to delete or any key to exit." 50
+		echo_message "Directory '"$project_dir"' exists.\
+			\nRemove directory '"$project_dir"'?\
+			\nPress 'Enter' or 'y' to delete or any key to exit." 50
 
 		read -s -n 1 delete
 
@@ -80,7 +80,7 @@ if [[ $virtual_env != "" ]]; then
 		fi
 	else
 		if ! $is_available_virtualenv; then
-			echo_message "There are no available virtualenvs. You must \
+			echo_message "There are no available virtualenvs.\nYou must \
 				specify the version of Python." 65
 			exit 1
 		fi
