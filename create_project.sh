@@ -82,6 +82,12 @@ if [[ $virtual_env != "" ]]; then
 
 			is_available_python_version=true
 		fi
+	else
+		if ! $is_available_virtualenv; then
+			missed_script_args "There are no available virtualenvs. You must \
+				specify the version of Python." 65
+			exit 1
+		fi
 	fi
 
 	if $is_available_python_version && ! $is_available_virtualenv; then
