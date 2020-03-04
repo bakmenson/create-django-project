@@ -11,7 +11,7 @@ is_available_virtualenv=false
 
 separator() { printf %$1s | tr " " "-" && echo ""; }
 
-echo_message() { separator $2 && echo -e $1 && separator $2 && exit 1; }
+echo_message() { separator $2 && echo -e $1 && separator $2; }
 
 cd ../
 
