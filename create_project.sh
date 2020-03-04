@@ -11,15 +11,15 @@ is_available_virtualenv=false
 
 separator() { printf %$1s | tr " " "-" && echo ""; }
 
-missed_script_args() { separator $2 && echo $1 && separator $2 && exit 1; }
+echo_message() { separator $2 && echo $1 && separator $2 && exit 1; }
 
 cd ../
 
 if [[ $project_dir == "" ]]; then
-	missed_script_args "You did not specify project dir, virtual env and python version." 64
+	echo_message "You did not specify project dir, virtual env and python version." 64
 else
 	if [[ -d $project_dir ]]; then
-		missed_script_args "Directory '"$project_dir"' exists.\n\
+		echo_message "Directory '"$project_dir"' exists.\n\
 			Remove directory '"$project_dir"'?\n\
 			Press 'Enter' or 'y' to delete or any key to exit." 50
 
@@ -41,7 +41,7 @@ if [[ $virtual_env != "" ]]; then
 			pyenv_version=${BASH_REMATCH[2]}
 			if [[ $virtual_env =~ ${BASH_REMATCH[1]} ]]; then
 				is_available_virtualenv=true
-				missed_script_args "Virtualenv '"$virtual_env"' already exists \
+				echo_message "Virtualenv '"$virtual_env"' already exists \
 					('"$pyenv_version"').\nSet virtualenv '"$virtual_env"' for \
 					project dir with '"$pyenv_version"'?\nPress 'Enter' or 'y' \
 					to continue or any key to exit." 60
@@ -80,7 +80,7 @@ if [[ $virtual_env != "" ]]; then
 		fi
 	else
 		if ! $is_available_virtualenv; then
-			missed_script_args "There are no available virtualenvs. You must \
+			echo_message "There are no available virtualenvs. You must \
 				specify the version of Python." 65
 			exit 1
 		fi
@@ -93,7 +93,7 @@ if [[ $virtual_env != "" ]]; then
 		echo "" && echo "Done"
 	fi
 else
-	missed_script_args "You did not specify virtual env and python version." 51
+	echo_message "You did not specify virtual env and python version." 51
 fi
 
 django_project_name="${project_dir//'-'/$'_'}"
