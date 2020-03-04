@@ -27,12 +27,12 @@ else
 				pyenv uninstall $env
 				echo "Virtualenv '"$env"' uninstalled."
 			fi
-
-			rm -rf $project_dir
-			echo "Project removed."
-			echo "--------------------------------------------------"
-
 		fi
+
+		rm -rf $project_dir
+		echo "--------------------------------------------------"
+		echo "Project removed."
+		echo "--------------------------------------------------"
 
 	else
 		echo "--------------------------------------------------"
