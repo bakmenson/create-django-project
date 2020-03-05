@@ -1,5 +1,9 @@
 #!/bin/bash
 
+separator() { printf %$1s | tr " " "-" && echo ""; }
+
+echo_message() { separator $2 && echo -e $1 && separator $2; }
+
 action=$1
 
 if [[ $action == "-c" ]]; then
