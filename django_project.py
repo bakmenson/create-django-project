@@ -1,6 +1,7 @@
 from subprocess import Popen, PIPE
 from typing import List, Tuple, Union
 from re import findall, match
+from sys import argv
 
 
 def print_message(message: str) -> None:
@@ -20,6 +21,8 @@ def get_pyenv_output(command: str) -> List[str]:
 
     return output_list
 
+
+DJANGO_PROJECT_ARG: str = argv[1]
 
 VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions." \
                      r"(?P<version>.+).$"
