@@ -25,8 +25,27 @@ VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions.(?P<version>.
 EXCLUDE_VERSION_PATTERN = r"[0-9a-zA-Z.]+/.+/.+"
 EXCLUDE_VIRTUALENV_PATTERN = r"^.+/envs/"
 
-versions = get_pyenv_output('pyenv versions')
-virtualenvs = get_pyenv_output('pyenv virtualenvs')
+versions_output = get_pyenv_output('pyenv versions')
+virtualenvs_output = get_pyenv_output('pyenv virtualenvs')
 
+versions: List[str] = []
+
+for string in versions_output:
+    exlude_match = re.findall(EXCLUDE_VERSION_PATTERN, string)
+    if not exlude_match:
+        if ' ' in string:
+            string = string[0:string.index(' ')]
+        versions.append(string)
+
+virtualenvs: List[Tuple[str, str]] = []
+
+for string in virtualenvs_output:
+    virtualenvs_match = re.match(VIRTUALENV_PATTERN, string)
+    if virtualenvs_match:
+        virtualenvs.append((virtualenvs_match.group(1),
+                            virtualenvs_match.group(2)))
+
+print()
 print(versions)
+print()
 print(virtualenvs)
