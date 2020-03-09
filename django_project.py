@@ -1,6 +1,6 @@
-import re
 from subprocess import Popen, PIPE
 from typing import List, Tuple, Union
+from re import findall, match
 
 
 def print_message(message: str) -> None:
@@ -31,7 +31,7 @@ virtualenvs_output = get_pyenv_output('pyenv virtualenvs')
 versions: List[str] = []
 
 for string in versions_output:
-    exlude_match = re.findall(EXCLUDE_VERSION_PATTERN, string)
+    exlude_match = findall(EXCLUDE_VERSION_PATTERN, string)
     if not exlude_match:
         if ' ' in string:
             string = string[0:string.index(' ')]
@@ -40,7 +40,7 @@ for string in versions_output:
 virtualenvs: List[Tuple[str, str]] = []
 
 for string in virtualenvs_output:
-    virtualenvs_match = re.match(VIRTUALENV_PATTERN, string)
+    virtualenvs_match = match(VIRTUALENV_PATTERN, string)
     if virtualenvs_match:
         virtualenvs.append((virtualenvs_match.group(1),
                             virtualenvs_match.group(2)))
