@@ -46,7 +46,7 @@ for string in VIRTUALENVS_OUTPUT:
     virtualenvs_match = match(VIRTUALENV_PATTERN, string)
     if virtualenvs_match:
         virtual_envs.append((virtualenvs_match.group(1),
-                            virtualenvs_match.group(2)))
+                             virtualenvs_match.group(2)))
 
 if DJANGO_PROJECT_ARG == '-c':
 
