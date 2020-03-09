@@ -21,7 +21,8 @@ def get_pyenv_output(command: str) -> List[str]:
     return output_list
 
 
-VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions.(?P<version>.+).$"
+VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions." \
+                     r"(?P<version>.+).$"
 EXCLUDE_VERSION_PATTERN = r"[0-9a-zA-Z.]+/.+/.+"
 
 versions_output = get_pyenv_output('pyenv versions')
