@@ -3,12 +3,8 @@ from subprocess import Popen, PIPE
 from typing import List, Tuple, Union
 
 
-def separator(number: int) -> None:
-    pass
-
-
-def print_message(message: str, number: int) -> None:
-    pass
+def print_message(message: str) -> None:
+    print(f"{'-' * len(message)}\n{message}\n{'-' * len(message)}")
 
 
 def get_pyenv_output(command: str) -> List[str]:
