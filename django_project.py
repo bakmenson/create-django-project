@@ -22,7 +22,7 @@ def get_pyenv_output(command: str) -> List[str]:
     return output_list
 
 
-DJANGO_PROJECT_ARG: str = argv[1]
+DJANGO_PROJECT_ARGV: str = argv[1]
 
 VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions." \
                      r"(?P<version>.+).$"
@@ -48,7 +48,7 @@ for string in VIRTUALENVS_OUTPUT:
         virtual_envs.append((virtualenvs_match.group(1),
                              virtualenvs_match.group(2)))
 
-if DJANGO_PROJECT_ARG == '-c':
+if DJANGO_PROJECT_ARGV == '-c':
 
     print_message("Input project dir.")
     project_dir: str = input(">>> ")
@@ -59,7 +59,7 @@ if DJANGO_PROJECT_ARG == '-c':
     print_message("Input Python version (e.g. 3.8.0).")
     python_version: str = input(">>> ")
 
-elif DJANGO_PROJECT_ARG == '-d':
+elif DJANGO_PROJECT_ARGV == '-d':
     pass
 else:
     print_message("Wrong command.")
