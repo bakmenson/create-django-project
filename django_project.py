@@ -40,12 +40,12 @@ for string in VERSIONS_OUTPUT:
             string = string[0:string.index(' ')]
         versions.append(string)
 
-virtualenvs: List[Tuple[str, str]] = []
+virtual_envs: List[Tuple[str, str]] = []
 
 for string in VIRTUALENVS_OUTPUT:
     virtualenvs_match = match(VIRTUALENV_PATTERN, string)
     if virtualenvs_match:
-        virtualenvs.append((virtualenvs_match.group(1),
+        virtual_envs.append((virtualenvs_match.group(1),
                             virtualenvs_match.group(2)))
 
 if DJANGO_PROJECT_ARG == '-c':
