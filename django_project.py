@@ -49,7 +49,16 @@ for string in VIRTUALENVS_OUTPUT:
                             virtualenvs_match.group(2)))
 
 if DJANGO_PROJECT_ARG == '-c':
-    pass
+
+    print_message("Input project dir.")
+    project_dir: str = input(">>> ")
+
+    print_message("Input virtual env.")
+    virtual_env: str = input(">>> ")
+
+    print_message("Input Python version (e.g. 3.8.0).")
+    python_version: str = input(">>> ")
+
 elif DJANGO_PROJECT_ARG == '-d':
     pass
 else:
