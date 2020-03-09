@@ -47,8 +47,3 @@ for string in VIRTUALENVS_OUTPUT:
     if virtualenvs_match:
         virtualenvs.append((virtualenvs_match.group(1),
                             virtualenvs_match.group(2)))
-
-print()
-print(versions)
-print()
-print(virtualenvs)
