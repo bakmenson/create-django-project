@@ -47,3 +47,10 @@ for string in VIRTUALENVS_OUTPUT:
     if virtualenvs_match:
         virtualenvs.append((virtualenvs_match.group(1),
                             virtualenvs_match.group(2)))
+
+if DJANGO_PROJECT_ARG == '-c':
+    pass
+elif DJANGO_PROJECT_ARG == '-d':
+    pass
+else:
+    print_message("Wrong command.")
