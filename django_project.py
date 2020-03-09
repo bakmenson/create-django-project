@@ -32,6 +32,8 @@ VIRTUALENV_PATTERN = r"^(?P<env>[^//])..created.+versions.(?P<version>.+).$"
 EXCLUDE_VERSION_PATTERN = r"[0-9a-zA-Z.]+/.+/.+"
 EXCLUDE_VIRTUALENV_PATTERN = r"^.+/envs/"
 
-pyenv_versions_output = get_pyenv_output('pyenv versions', EXCLUDE_VERSION_PATTERN)
+versions = get_pyenv_output('pyenv versions', EXCLUDE_VERSION_PATTERN)
+virtualenvs = get_pyenv_output('pyenv virtualenvs', EXCLUDE_VIRTUALENV_PATTERN)
 
-pyenv_virtualenvs = get_pyenv_output('pyenv virtualenvs', EXCLUDE_VIRTUALENV_PATTERN)
+print(versions)
+print(virtualenvs)
