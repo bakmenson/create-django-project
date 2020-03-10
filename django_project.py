@@ -22,8 +22,8 @@ def get_pyenv_output(command: str) -> List[str]:
     return output_list
 
 
-def set_project_var(descr: str) -> str:
-    print_message(descr)
+def set_project_var(input_message: str) -> str:
+    print_message(input_message)
     return input(">>> ")
 
 
