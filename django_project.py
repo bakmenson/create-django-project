@@ -22,6 +22,11 @@ def get_pyenv_output(command: str) -> List[str]:
     return output_list
 
 
+def set_project_var(descr: str) -> str:
+    print_message(descr)
+    return input(">>> ")
+
+
 DJANGO_PROJECT_ARGV: str = argv[1]
 
 VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions." \
@@ -50,14 +55,9 @@ for string in VIRTUALENVS_OUTPUT:
 
 if DJANGO_PROJECT_ARGV == '-c':
 
-    print_message("Input project dir.")
-    project_dir: str = input(">>> ")
-
-    print_message("Input virtual env.")
-    virtual_env: str = input(">>> ")
-
-    print_message("Input Python version (e.g. 3.8.0).")
-    python_version: str = input(">>> ")
+    project_dir: str = set_project_var("Input project dir.")
+    virtual_env: str = set_project_var("Input virtual env.")
+    python_version: str = set_project_var("Input Python version (e.g. 3.8.0).")
 
 elif DJANGO_PROJECT_ARGV == '-d':
     pass
