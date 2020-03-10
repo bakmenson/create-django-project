@@ -22,16 +22,16 @@ def get_pyenv_output(command: str) -> List[str]:
     return output_list
 
 
-def set_project_var(input_message: str, is_check: bool = True) -> str:
+def set_project_var(input_message: str) -> str:
     print_message(input_message)
     output: str = input(">>> ")
 
-    while is_check:
+    while True:
         if not output:
             print("You did not set var. Try again.")
             output = input(">>> ")
         else:
-            is_check = False
+            break
 
     return output
 
@@ -64,10 +64,9 @@ for string in VIRTUALENVS_OUTPUT:
 
 if DJANGO_PROJECT_ARGV == '-c':
 
-    project_dir: str = set_project_var("Input project dir.",)
+    project_dir: str = set_project_var("Input project dir.")
     virtual_env: str = set_project_var("Input virtual env.")
-    python_version: str = set_project_var("Input Python version (e.g. 3.8.0).",
-                                          False)
+    python_version: str = set_project_var("Input Python version (e.g. 3.8.0).")
 
 elif DJANGO_PROJECT_ARGV == '-d':
     pass
