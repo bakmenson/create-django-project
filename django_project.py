@@ -33,7 +33,7 @@ def set_project_var(input_message: str) -> str:
         else:
             break
 
-    return output
+    return output.replace(' ', '_')
 
 
 DJANGO_PROJECT_ARGV: str = argv[1]
@@ -65,8 +65,9 @@ for string in VIRTUALENVS_OUTPUT:
 if DJANGO_PROJECT_ARGV == '-c':
 
     project_dir: str = set_project_var("Input project dir.")
-    virtual_env: str = set_project_var("Input virtual env.")
-    python_version: str = set_project_var("Input Python version (e.g. 3.8.0).")
+    #virtual_env: str = set_project_var("Input virtual env.")
+    #python_version: str = set_project_var("Input Python version (e.g. 3.8.0).")
+    print(project_dir)
 
 elif DJANGO_PROJECT_ARGV == '-d':
     pass
