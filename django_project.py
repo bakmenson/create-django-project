@@ -50,7 +50,7 @@ except IndexError as e:
 
 VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions." \
                      r"(?P<version>.+).$"
-EXCLUDE_VERSION_PATTERN = r"[0-9a-zA-Z.]+/.+/.+"
+VERSION_PATTERN = r"^[a-zA-Z0-9.-]+$"
 
 VERSIONS_OUTPUT = get_pyenv_output('pyenv versions')
 VIRTUALENVS_OUTPUT = get_pyenv_output('pyenv virtualenvs')
@@ -58,7 +58,7 @@ VIRTUALENVS_OUTPUT = get_pyenv_output('pyenv virtualenvs')
 versions: List[str] = []
 
 for string in VERSIONS_OUTPUT:
-    exlude_match = findall(EXCLUDE_VERSION_PATTERN, string)
+    exlude_match = findall(VERSION_PATTERN, string)
     if not exlude_match:
         if ' ' in string:
             string = string[0:string.index(' ')]
