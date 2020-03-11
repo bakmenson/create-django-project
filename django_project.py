@@ -41,7 +41,12 @@ def set_project_var(input_message: str) -> str:
 # and write output like /home/solus/.pyenv/versions/django-ecommerce/bin/python
 # in .vim/coc-setting.json
 
-DJANGO_PROJECT_ARGV: str = argv[1]
+DJANGO_PROJECT_ARGV: str = str()
+
+try:
+    DJANGO_PROJECT_ARGV = argv[1]
+except IndexError as e:
+    print_message("Missed project argument ('-c' or '-d')")
 
 VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions." \
                      r"(?P<version>.+).$"
@@ -77,4 +82,5 @@ if DJANGO_PROJECT_ARGV == '-c':
 elif DJANGO_PROJECT_ARGV == '-d':
     pass
 else:
-    print_message("Wrong command.")
+    if DJANGO_PROJECT_ARGV:
+        print_message("Wrong command.")
