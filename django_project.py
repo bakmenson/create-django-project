@@ -1,6 +1,6 @@
 from subprocess import Popen, PIPE
 from typing import List, Tuple, Union
-from re import findall, match
+from re import match, compile
 from sys import argv
 
 
@@ -36,6 +36,26 @@ def set_project_var(input_message: str) -> str:
     return project_var.replace(' ', '_')
 
 
+def get_pyenv_regex(pyenv_output: List[str], regex_pattern: str):
+    result: List[Union[str, List[str]]] = []
+    regex_group_count: int = compile(regex_pattern).groups
+
+    for string in pyenv_output:
+        pattern_match = match(regex_pattern, string)
+        if pattern_match:
+            if regex_group_count == 1:
+                result.append(string)
+            elif regex_group_count > 1:
+                groups_list: List[str] = []
+                for number in range(1, regex_group_count + 1):
+                    groups_list.append(pattern_match.group(number))
+                result.append(groups_list)
+            else:
+                raise ValueError("Regex group count cannot be less 1.")
+
+    return result
+
+
 # TODO add .vim/coc-setting.json for pyenv and coc.nvim
 # using commands: pyenv which python
 # and write output like /home/solus/.pyenv/versions/django-ecommerce/bin/python
@@ -48,29 +68,24 @@ try:
 except IndexError as e:
     print_message("Missed project argument ('-c' or '-d')")
 
-VIRTUALENV_PATTERN = r"^(?P<env>[0-9a-zA-z-.]+)..created.+versions." \
-                     r"(?P<version>.+).$"
-VERSION_PATTERN = r"^[a-zA-Z0-9.-]+$"
+VIRTUALENV_PATTERN = r"^([a-zA-Z0-9.-]+)..created.+versions.(.+).$"
+VERSION_PATTERN = r"^([a-zA-Z0-9.-]+)$"
 
 VERSIONS_OUTPUT = get_pyenv_output('pyenv versions')
 VIRTUALENVS_OUTPUT = get_pyenv_output('pyenv virtualenvs')
 
-versions: List[str] = []
-
 for string in VERSIONS_OUTPUT:
-    version_match = findall(VERSION_PATTERN, string)
-    if version_match:
-        if ' ' in string:
-            string = string[0:string.index(' ')]
-        versions.append(string)
+    if ' ' in string:
+        space_index = VERSIONS_OUTPUT.index(string)
+        VERSIONS_OUTPUT[space_index] = string[0:string.index(' ')]
 
-virtual_envs: List[Tuple[str, str]] = []
+versions: List[Union[str, List[str]]] = get_pyenv_regex(
+    VERSIONS_OUTPUT, VERSION_PATTERN
+)
 
-for string in VIRTUALENVS_OUTPUT:
-    virtualenvs_match = match(VIRTUALENV_PATTERN, string)
-    if virtualenvs_match:
-        virtual_envs.append((virtualenvs_match.group(1),
-                             virtualenvs_match.group(2)))
+virtual_envs: List[Union[str, List[str]]] = get_pyenv_regex(
+    VIRTUALENVS_OUTPUT, VIRTUALENV_PATTERN
+)
 
 if DJANGO_PROJECT_ARGV == '-c':
 
