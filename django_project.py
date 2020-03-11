@@ -58,8 +58,8 @@ VIRTUALENVS_OUTPUT = get_pyenv_output('pyenv virtualenvs')
 versions: List[str] = []
 
 for string in VERSIONS_OUTPUT:
-    exlude_match = findall(VERSION_PATTERN, string)
-    if not exlude_match:
+    version_match = findall(VERSION_PATTERN, string)
+    if not version_match:
         if ' ' in string:
             string = string[0:string.index(' ')]
         versions.append(string)
