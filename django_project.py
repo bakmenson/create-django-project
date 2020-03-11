@@ -59,7 +59,7 @@ versions: List[str] = []
 
 for string in VERSIONS_OUTPUT:
     version_match = findall(VERSION_PATTERN, string)
-    if not version_match:
+    if version_match:
         if ' ' in string:
             string = string[0:string.index(' ')]
         versions.append(string)
