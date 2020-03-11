@@ -24,17 +24,16 @@ def get_pyenv_output(command: str) -> List[str]:
 
 def set_project_var(input_message: str) -> str:
     print_message(input_message)
-    # TODO: rename output
-    output: str = input(">>> ")
+    project_var: str = input(">>> ")
 
     while True:
-        if not output:
+        if not project_var:
             print("You did not set var. Try again.")
-            output = input(">>> ")
+            project_var = input(">>> ")
         else:
             break
 
-    return output.replace(' ', '_')
+    return project_var.replace(' ', '_')
 
 
 # TODO add .vim/coc-setting.json for pyenv and coc.nvim
