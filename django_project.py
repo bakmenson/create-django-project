@@ -24,6 +24,7 @@ def get_pyenv_output(command: str) -> List[str]:
 
 def set_project_var(input_message: str) -> str:
     print_message(input_message)
+    # TODO: rename output
     output: str = input(">>> ")
 
     while True:
@@ -35,6 +36,11 @@ def set_project_var(input_message: str) -> str:
 
     return output.replace(' ', '_')
 
+
+# TODO add .vim/coc-setting.json for pyenv and coc.nvim
+# using commands: pyenv which python
+# and write output like /home/solus/.pyenv/versions/django-ecommerce/bin/python
+# in .vim/coc-setting.json
 
 DJANGO_PROJECT_ARGV: str = argv[1]
 
