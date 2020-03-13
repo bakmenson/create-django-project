@@ -8,7 +8,7 @@ def print_message(message: str) -> None:
 
 
 def print_help() -> None:
-    print('-' * 55)
+    print('-' * 70)
     print('''
   First arg:
     -h: print help
@@ -22,9 +22,9 @@ def print_help() -> None:
     virtual env to be created or set for project
 
   Fourth arg:
-    python version to be installed or set for project
+    python version (e.g. 3.8.0) to be installed or set for project
           ''')
-    print('-' * 55)
+    print('-' * 70)
 
 
 def get_argv(argv_num: int, is_except: bool = True) -> str:
