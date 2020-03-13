@@ -8,7 +8,8 @@ class Pyenv:
         self._env_name: str = env_name
         self._python_version: str = python_version
 
-    def _get_console_output(self, command) -> List[str]:
+    @staticmethod
+    def _get_console_output(command) -> List[str]:
         console_output: Tuple[Union[str, bytes], Union[str, bytes]] = Popen(
             [command], shell=True, stdout=PIPE, encoding='utf-8'
         ).communicate()
@@ -21,8 +22,9 @@ class Pyenv:
 
         return output_list
 
+    @staticmethod
     def _get_regex_console_output(
-            self, pyenv_output: List[str], regex_pattern: str
+            pyenv_output: List[str], regex_pattern: str
     ) -> List[Union[str, Tuple[str]]]:
 
         result: List[Union[str, Tuple[str]]] = []
