@@ -27,20 +27,6 @@ def print_help() -> None:
     print('-' * 55)
 
 
-def set_project_var(input_message: str) -> str:
-    print_message(input_message)
-    project_var: str = input(">>> ")
-
-    while True:
-        if not project_var:
-            print("You did not set var. Try again.")
-            project_var = input(">>> ")
-        else:
-            break
-
-    return project_var.replace(' ', '_')
-
-
 def get_argv(argv_num: int, is_except: bool = True) -> str:
     project_argv: str = str()
     try:
