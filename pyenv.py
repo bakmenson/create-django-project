@@ -22,13 +22,13 @@ class Pyenv:
         return output_list
 
     def _get_regex_console_output(
-        self, pyenv_output: List[str], regex_pattern: str
+            self, pyenv_output: List[str], regex_pattern: str
     ) -> List[Union[str, Tuple[str]]]:
 
         result: List[Union[str, Tuple[str]]] = []
 
-        for string in pyenv_output:
-            pattern_match = findall(regex_pattern, string)
+        for line in pyenv_output:
+            pattern_match = findall(regex_pattern, line)
             if pattern_match:
                 result.append(*pattern_match)
 
@@ -39,18 +39,20 @@ class Pyenv:
         return result
 
     def get_command_output(
-        self, command: str, regex_pattern: str
+            self, command: str, regex_pattern: str
     ) -> List[Union[str, Tuple[str]]]:
         return self._get_regex_console_output(
             self._get_console_output(command),
             regex_pattern
         )
 
-    def install_python(self, version) -> None:
-        call("pyenv install " + version, shell=True)
+    def install_python(self) -> None:
+        call("pyenv install " + self._python_version, shell=True)
 
-    def create_virtualenv(self, python_version, env_name) -> None:
-        call("pyenv virtualenv " + python_version + " " + env_name, shell=True)
+    def create_virtualenv(self) -> None:
+        call("pyenv virtualenv " \
+             + self._python_version + " " \
+             + self._env_name, shell=True)
 
-    def set_virtualenv(self, env_name) -> None:
-        call("pyenv local " + env_name, shell=True)
+    def set_virtualenv(self) -> None:
+        call("pyenv local " + self._env_name, shell=True)
