@@ -4,7 +4,8 @@ project_dir=$1
 virtual_env=$2
 python_version=$3
 
-VIRTUALENV_PATTERN="^(.+)..created.+versions.(.+).$"
+VIRTUALENV_PATTERN="^([a-zA-Z0-9.-]+)..created.+versions.(.+).$"
+VERSION_PATTERN="^[a-zA-Z0-9.-]+$|^[a-zA-Z0-9.-]+\s"
 
 is_available_python_version=false
 is_available_virtualenv=false
@@ -39,6 +40,7 @@ if [[ $virtual_env != "" ]]; then
 	while read -r line; do
 		if [[ $line =~ ${VIRTUALENV_PATTERN} ]]; then
 			pyenv_version=${BASH_REMATCH[2]}
+			echo $pyenv_version
 			if [[ $virtual_env =~ ${BASH_REMATCH[1]} ]]; then
 				is_available_virtualenv=true
 				echo_message "Virtualenv '"$virtual_env"' already exists \
