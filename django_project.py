@@ -49,15 +49,15 @@ if project_action == "--help":
     print_help()
     exit()
 
-project_dir: str = set_project_arg("Input project dir name")
-virtual_env: str = set_project_arg("Input virtual evn name")
-python_version: str = set_project_arg("Input python version (e.g. 3.8.0)",
-                                      True)
-
 VIRTUALENV_PATTERN = r"^([a-zA-Z0-9.-]+)..created.+versions.(.+).$"
 VERSION_PATTERN = r"^[a-zA-Z0-9.-]+$|^[a-zA-Z0-9.-]+\s"
 
-if project_action == '-c':
+if project_action == 'init':
+
+    project_dir: str = set_project_arg("Input project dir name")
+    virtual_env: str = set_project_arg("Input virtual evn name")
+    python_version: str = set_project_arg("Input python version (e.g. 3.8.0)",
+                                          True)
 
     versions = get_command_output("pyenv versions", VERSION_PATTERN)
     virtualenvs = get_command_output("pyenv virtualenvs", VIRTUALENV_PATTERN)
@@ -65,7 +65,7 @@ if project_action == '-c':
     print(versions)
     print(virtualenvs)
 
-elif project_action == '-d':
+elif project_action == 'delete':
     pass
 else:
     if project_action:
