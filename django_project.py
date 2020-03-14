@@ -62,9 +62,6 @@ if project_action == 'init':
     versions = get_command_output("pyenv versions", VERSION_PATTERN)
     virtualenvs = get_command_output("pyenv virtualenvs", VIRTUALENV_PATTERN)
 
-    print(versions)
-    print(virtualenvs)
-
 elif project_action == 'delete':
     pass
 else:
