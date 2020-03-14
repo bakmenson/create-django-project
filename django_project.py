@@ -8,23 +8,14 @@ def print_message(message: str) -> None:
 
 
 def print_help() -> None:
-    print('-' * 70)
+    print('-' * 35)
     print('''
-  First arg:
-    -h: print help
-    -c: create django project
-    -d: delete django project
-
-  Second arg:
-    project directory to be created
-
-  Third arg:
-    virtual env to be created or set for project
-
-  Fourth arg:
-    python version (e.g. 3.8.0) to be installed or set for project
+  Arguments:
+    --help: print help
+    init: create django project
+    delete: delete django project
           ''')
-    print('-' * 70)
+    print('-' * 35)
 
 
 def set_project_arg(input_descr: str, is_empty: bool = False) -> str:
@@ -54,7 +45,7 @@ except IndexError:
     print_message("Missed project argument.")
     exit()
 
-if project_action == "-h":
+if project_action == "--help":
     print_help()
     exit()
 
