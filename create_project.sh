@@ -64,8 +64,10 @@ if [[ $virtual_env != "" ]]; then
 
 	if [[ $python_version != "" ]]; then
 		while read -r line; do
-			if [[ $line == $python_version ]]; then
-				is_available_python_version=true
+			if [[ $line =~ ${VERSION_PATTERN} ]]; then
+				if [[ $python_version =~ ${BASH_REMATCH[1]} ]]; then
+					is_available_python_version=true
+				fi
 			fi
 		done < <(pyenv versions)
 

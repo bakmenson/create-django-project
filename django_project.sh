@@ -14,7 +14,7 @@ if [[ $action == "-c" ]]; then
 
 	chmod +x create_project.sh
 
-	./create_project.sh $create_dir $virtual_env $pyenv_version
+	./create_project.sh $create_dir $virtual_env $python_version
 
 elif [[ $action == "-d" ]]; then
 
