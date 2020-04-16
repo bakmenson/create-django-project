@@ -12,8 +12,8 @@ def print_help() -> None:
     print('''
   Arguments:
     --help: print help
-    init: create django project
-    delete: delete django project
+    -c: create django project
+    -d: delete django project
           ''')
     print('-' * 35)
 
@@ -47,7 +47,7 @@ if project_action == "--help":
 VIRTUALENV_PATTERN = r"^([a-zA-Z0-9.-]+)..created.+versions.(.+).$"
 VERSION_PATTERN = r"^[a-zA-Z0-9.-]+$|^[a-zA-Z0-9.-]+\s"
 
-if project_action == 'init':
+if project_action == '-c':
 
     project_dir: str = set_project_arg("Input project dir name")
     virtual_env: str = set_project_arg("Input virtual evn name")
@@ -57,7 +57,7 @@ if project_action == 'init':
     versions = get_command_output("pyenv versions", VERSION_PATTERN)
     virtualenvs = get_command_output("pyenv virtualenvs", VIRTUALENV_PATTERN)
 
-elif project_action == 'delete':
+elif project_action == '-d':
     pass
 else:
     if project_action:
