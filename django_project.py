@@ -40,14 +40,14 @@ except IndexError:
     print_message("Missed project argument.")
     exit()
 
-if project_action == "--help":
-    print_help()
-    exit()
-
 VIRTUALENV_PATTERN = r"^([a-zA-Z0-9.-]+)..created.+versions.(.+).$"
 VERSION_PATTERN = r"^[a-zA-Z0-9.-]+$|^[a-zA-Z0-9.-]+\s"
 
-if project_action == '-c':
+if project_action not in ("-c", "-d"):
+    print_help()
+    exit()
+
+elif project_action == '-c':
 
     project_dir: str = set_project_arg("Input project dir name")
     virtual_env: str = set_project_arg("Input virtual evn name")
@@ -59,6 +59,3 @@ if project_action == '-c':
 
 elif project_action == '-d':
     pass
-else:
-    if project_action:
-        print_help()
