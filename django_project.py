@@ -45,7 +45,6 @@ VERSION_PATTERN = r"^[a-zA-Z0-9.-]+$|^[a-zA-Z0-9.-]+\s"
 
 if project_action not in ("-c", "-d"):
     print_help()
-    exit()
 
 elif project_action == '-c':
 
