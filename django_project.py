@@ -32,11 +32,6 @@ def set_project_arg(input_descr: str, is_empty: bool = False) -> str:
     return project_arg
 
 
-# TODO add .vim/coc-setting.json for pyenv and coc.nvim
-# using commands: pyenv which python
-# and write output like /home/solus/.pyenv/versions/django-ecommerce/bin/python
-# in .vim/coc-setting.json
-
 project_action: str = str()
 
 try:
