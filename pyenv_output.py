@@ -1,4 +1,4 @@
-from typing import List, Tuple, Union
+from typing import List
 from re import sub
 from subprocess import Popen, PIPE
 
