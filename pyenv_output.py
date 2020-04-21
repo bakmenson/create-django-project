@@ -32,7 +32,7 @@ class PyenvOutput:
 
         pattern_match = sub(self._regex_pattern, "", self._command_output())
         if pattern_match:
-            edited_str = pattern_match.replace("\n", "")
+            edited_str = pattern_match.replace("\n", "").replace("*", "")
 
         return edited_str
 
