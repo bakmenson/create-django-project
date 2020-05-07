@@ -63,7 +63,7 @@ class PyenvOutput:
         return list(set(pattern_match))
 
     @property
-    def get_output(self) -> list:
+    def output(self) -> list:
         """
         :return: edited pyenv command from terminal
         """
