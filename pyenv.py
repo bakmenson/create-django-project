@@ -1,56 +1,77 @@
-from subprocess import Popen, PIPE, call
+from subprocess import call, Popen, PIPE
 from re import findall
-from typing import List, Tuple, Union
 
 
-def get_console_output(command) -> List[str]:
-    console_output: Tuple[Union[str, bytes], Union[str, bytes]] = Popen(
-        [command], shell=True, stdout=PIPE, encoding='utf-8'
-    ).communicate()
+class PyenvAction:
+    def __init__(self, virtualenv_name: str, python_version: str = ""):
+        """
+        :param virtualenv_name: virtualenv name for project
+        :param python_version: python version for project
+        """
+        self._virtualenv_name = virtualenv_name
+        self._python_version = python_version
 
-    console_output_string: str = str(
-        console_output[0]
-    ).replace('\n', '').replace('*', ' ').strip()
+    def install_python(self) -> None:
+        """
+        install python version
+        """
+        call("pyenv install " + self._python_version, shell=True)
 
-    output_list: List[str] = console_output_string.split('  ')
+    def create_virtualenv(self) -> None:
+        """
+        create new virtualenv
+        """
+        call("pyenv virtualenv " + self._python_version + " "
+             + self._virtualenv_name, shell=True)
 
-    return output_list
+    def set_virtualenv(self) -> None:
+        """
+        set virtualenv for project dir
+        """
+        call("pyenv local " + self._virtualenv_name, shell=True)
 
-
-def get_regex_console_output(
-        pyenv_output: List[str], regex_pattern: str
-) -> List[Union[str, Tuple[str]]]:
-
-    result: List[Union[str, Tuple[str]]] = []
-
-    for line in pyenv_output:
-        pattern_match = findall(regex_pattern, line)
-        if pattern_match:
-            result.append(*pattern_match)
-
-    for string in result:
-        if isinstance(string, str):
-            result[result.index(string)] = string.rstrip()
-
-    return result
-
-
-def get_command_output(
-        command: str, regex_pattern: str
-) -> List[Union[str, Tuple[str]]]:
-    return get_regex_console_output(
-        get_console_output(command),
-        regex_pattern
-    )
+    def __str__(self):
+        return f"Virtualenv name: {self._virtualenv_name}," \
+               f" Python version: {self._python_version}."
 
 
-def install_python(python_version) -> None:
-    call("pyenv install " + python_version, shell=True)
+class PyenvOutput:
+    def __init__(self, command: str, regex_pattern: str = ""):
+        """
+        :param command: pyenv command like "pyenv versions"
+            "pyenv virtualenvs", "pyenv install --list"
+        :param regex_pattern: regex expression pattern
+        """
+        self._command = command
+        self._regex_pattern = regex_pattern
 
+    def _command_output(self) -> str:
+        """
+        :return: pyenv command output from terminal as string
+        """
+        return Popen(
+            [self._command], shell=True, stdout=PIPE, encoding='utf-8'
+        ).communicate()[0]
 
-def create_virtualenv(python_version, env_name) -> None:
-    call("pyenv virtualenv " + python_version + " " + env_name, shell=True)
+    def _regex_command_output(self) -> list:
+        """
+        lefts only python versions or envs name and python versions
+        from string pyenv command output
+        :return: pattern match
+        """
+        pattern_match = findall(self._regex_pattern, self._command_output())
+        return list(set(pattern_match))
 
+    @property
+    def get_output(self) -> list:
+        """
+        :return: edited pyenv command from terminal
+        """
+        if self._regex_pattern:
+            return self._regex_command_output()
 
-def set_virtualenv(env_name) -> None:
-    call("pyenv local " + env_name, shell=True)
+        return list(filter(
+            None, self._command_output().replace("\n", "").split(" ")))
+
+    def __str__(self):
+        return f"Command: {self._command}, Regex: {self._regex_pattern}"
