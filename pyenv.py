@@ -24,7 +24,7 @@ def set_virtualenv(virtualenv_name: str) -> None:
     call("pyenv local " + virtualenv_name, shell=True)
 
 
-def pyenv_output(command: str, regex_pattern: str = "") -> list:
+def output(command: str, regex_pattern: str = "") -> list:
     """
     :param command:
     :param regex_pattern:
