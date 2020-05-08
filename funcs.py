@@ -13,16 +13,15 @@ def print_help() -> None:
     print("-" * 35)
 
 
-def set_project_arg(input_descr: str, is_empty: bool = False) -> str:
+def set_project_arg(input_descr: str) -> str:
     project_arg: str = input(input_descr + ": >>> ")
 
-    if not is_empty:
-        while True:
-            if not project_arg:
-                print("Missed project variable. Try again.")
-                project_arg = input(input_descr + ": >>> ")
-                continue
-            break
+    while True:
+        if not project_arg:
+            print("Missed project variable. Try again.")
+            project_arg = input(input_descr + ": >>> ")
+            continue
+        break
 
     return project_arg
 
