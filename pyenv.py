@@ -35,43 +35,20 @@ class PyenvAction:
                f" Python version: {self._python_version}."
 
 
-class PyenvOutput:
-    def __init__(self, command: str, regex_pattern: str = ""):
-        """
-        :param command: pyenv command like "pyenv versions"
-            "pyenv virtualenvs", "pyenv install --list"
-        :param regex_pattern: regex expression pattern
-        """
-        self._command = command
-        self._regex_pattern = regex_pattern
+def pyenv_output(command: str, regex_pattern: str = "") -> list:
+    """
+    :param command:
+    :param regex_pattern:
+    :return command output as list(str, ...)
+     or list(tuple(str, str), ...) for virtualenvs:
+    """
+    command_output = Popen(
+        [command], shell=True, stdout=PIPE, encoding='utf-8'
+    ).communicate()[0]
 
-    def _command_output(self) -> str:
-        """
-        :return: pyenv command output from terminal as string
-        """
-        return Popen(
-            [self._command], shell=True, stdout=PIPE, encoding='utf-8'
-        ).communicate()[0]
+    if regex_pattern:
+        pattern_match = findall(regex_pattern, command_output)
+        if pattern_match:
+            return list(set(pattern_match))
 
-    def _regex_command_output(self) -> list:
-        """
-        lefts only python versions or envs name and python versions
-        from string pyenv command output
-        :return: pattern match
-        """
-        pattern_match = findall(self._regex_pattern, self._command_output())
-        return list(set(pattern_match))
-
-    @property
-    def output(self) -> list:
-        """
-        :return: edited pyenv command from terminal
-        """
-        if self._regex_pattern:
-            return self._regex_command_output()
-
-        return list(filter(
-            None, self._command_output().replace("\n", "").split(" ")))
-
-    def __str__(self):
-        return f"Command: {self._command}, Regex: {self._regex_pattern}"
+    return list(filter(None, command_output.replace("\n", "").split(" ")))
