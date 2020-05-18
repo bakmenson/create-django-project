@@ -6,7 +6,7 @@
     $ git clone https://github.com/bakmenson/django_project.git ~/.django_project
     ~~~
 
-2. Chmod django_project script
+2. 
     ~~~ bash
     $ chmod +x ~/.django_project/django_project
     ~~~
