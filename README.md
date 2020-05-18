@@ -24,6 +24,8 @@
     $ echo 'export PATH="$PATH:/$HOME/.django_project"' >> ~/.zshrc
     ~~~
 
+4. Restart Terminal
+
 ### Hot to use:
 
 - Create Project
