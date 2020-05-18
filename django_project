@@ -12,17 +12,17 @@ if [[ ${action} == "-c" ]]; then
 	echo_message "Input virtua env." 30 && read virtual_env
 	echo_message "Input Python version." 30 && read python_version
 
-	chmod +x create_project.sh
+	chmod +x create_project
 
-	./create_project.sh ${create_dir} ${virtual_env} ${python_version}
+	create_project ${create_dir} ${virtual_env} ${python_version}
 
 elif [[ ${action} == "-d" ]]; then
 
 	echo_message "Input project dir." 30 && read remove_project_dir
 
-	chmod +x delete_project.sh
+	chmod +x delete_project
 
-	./delete_project.sh ${remove_project_dir}
+	delete_project ${remove_project_dir}
 
 else
 	echo_message "Wrong command." 20 && exit 1
