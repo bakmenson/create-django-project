@@ -14,8 +14,6 @@ separator() { printf %$1s | tr " " "-" && echo ""; }
 
 echo_message() { separator $2 && echo -e $1 && separator $2; }
 
-cd ../
-
 if [[ ${project_dir} == "" ]]; then
 	echo_message "You did not specify project dir, virtual env and python version." 64
 else

@@ -6,8 +6,6 @@ separator() { printf %$1s | tr " " "-" && echo ""; }
 
 echo_message() { separator $2 && echo -e $1 && separator $2; }
 
-cd ../
-
 if [[ ${remove_project_dir} == "" ]]; then
 	echo_message "You did not specify project dir for removing." 45
 	exit 1
