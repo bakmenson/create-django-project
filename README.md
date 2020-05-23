@@ -1,4 +1,4 @@
-# Create a django project using pyenv and delete.
+# Create a django project and install virtualenv using pyenv or remove project and virtualenv.
 
 ### Hot to install:
 1. 
