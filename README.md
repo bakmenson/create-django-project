@@ -1,5 +1,9 @@
 # Create a django project and install virtualenv using pyenv or remove project and virtualenv.
 
+## Dependencies
+ - [pyenv](https://github.com/pyenv/pyenv)
+ - [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
+
 ### Hot to install:
 1. 
     ~~~ bash
