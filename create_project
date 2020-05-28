@@ -55,7 +55,6 @@ if [[ ${virtual_env} != "" ]]; then
 			mkdir ${project_dir} && cd ${project_dir}
 			pyenv local ${virtual_env}
 		else
-			rm -rf ${project_dir}
 			echo "Exit" && exit 1
 		fi
 	fi
