@@ -1,37 +1,44 @@
-# Create a django project using pyenv and delete.
+# Create a django project and install virtualenv using pyenv or remove project and virtualenv.
 
-### Hot to install:
+## Dependencies
+ - [pyenv](https://github.com/pyenv/pyenv)
+ - [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
+
+## Hot to install:
 1. 
-    ~~~ bash
+    ``` bash
     $ git clone https://github.com/bakmenson/django_project.git ~/.django_project
-    ~~~
+    ```
 
-2. Chmod django_project script
-    ~~~ bash
+2. 
+    ``` bash
     $ chmod +x ~/.django_project/django_project
-    ~~~
+    ```
 
 3. Export PATH
   - For **bash**:
-    ~~~ bash
-    $ echo 'export export DP_ROOT="$HOME/.django_project"' >> ~/.bashrc
-    $ echo 'export export PATH="$PATH:/$HOME/.django_project"' >> ~/.bashrc
-    ~~~
+    ``` bash
+    $ echo 'export DP_ROOT="$HOME/.django_project"' >> ~/.bashrc
+    $ echo 'export PATH="$PATH:/$HOME/.django_project"' >> ~/.bashrc
+    ```
     
   - For **Zsh**:
-    ~~~ zsh
+    ``` zsh
     $ echo 'export DP_ROOT="$HOME/.django_project"' >> ~/.zshrc
     $ echo 'export PATH="$PATH:/$HOME/.django_project"' >> ~/.zshrc
-    ~~~
+    ```
 
-### Hot to use:
+4. Restart Terminal
+
+## Hot to use:
 
 - Create Project
-    ~~~ bash
+    ``` bash
     $ django_project -c
-    ~~~
+    ```
     
 - Delete Project
-    ~~~ bash
+    ``` bash
+    $ cd <directory with project directory>
     $ django_project -d
-    ~~~
+    ```
