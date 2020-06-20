@@ -9,7 +9,7 @@ action=$1
 if [[ ${action} == "-c" ]]; then
 
 	echo_message "Input project dir." 30 && read create_dir
-	echo_message "Input virtua env." 30 && read virtual_env
+	echo_message "Input virtual env." 30 && read virtual_env
 	echo_message "Input Python version." 30 && read python_version
 
 	bash create_project ${create_dir} ${virtual_env} ${python_version}
