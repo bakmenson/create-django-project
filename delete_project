@@ -1,37 +1,26 @@
 #!/usr/bin/env bash
 
-remove_project_dir=$1
+project_to_remove=$1
 
 separator() { printf %$1s | tr " " "-" && echo ""; }
 
 echo_message() { separator $2 && echo -e $1 && separator $2; }
 
-if [[ ${remove_project_dir} == "" ]]; then
+if [[ ${project_to_remove} == "" ]]; then
 	echo_message "You did not specify project dir for removing." 45
 	exit 1
 else
-	if [[ -d ${remove_project_dir} ]]; then
+	if [[ -d ${project_to_remove} ]]; then
 
-		if [[ -e ${remove_project_dir}/.python-version ]]; then
-
-			read -r env < ${remove_project_dir}/.python-version
-
-			echo_message "Uninstall virtualenv '"${env}"'?\nPress 'Enter' \
-				or 'y' to delete or any key to exit." 50
-
-			read -s -n 1 delete_env
-
-			if [[ ${delete_env} == "" || ${delete_env} == "y" ]]; then
-				pyenv uninstall ${env}
-				echo "Virtualenv '"${env}"' uninstalled."
-			fi
+		if [[ -e ${project_to_remove}/.python-version ]]; then
+			read -r env < ${project_to_remove}/.python-version
 		fi
 
-		rm -rf ${remove_project_dir}
+		rm -rf ${project_to_remove}
+		pyenv uninstall ${env}
 		echo_message "Project removed." 20
-
 	else
-		echo_message "Directory '"${remove_project_dir}"' does not exist." 50
+		echo_message "Directory '"${project_to_remove}"' does not exist." 50
 		exit 1
 	fi
 fi
