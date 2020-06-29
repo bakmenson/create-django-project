@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 project_to_remove=$1
+env=""
 
 separator() { printf %$1s | tr " " "-" && echo ""; }
 
@@ -17,10 +18,13 @@ else
 		fi
 
 		rm -rf ${project_to_remove}
-		pyenv uninstall ${env}
 		echo_message "Project removed." 20
 	else
 		echo_message "Directory '"${project_to_remove}"' does not exist." 50
 		exit 1
 	fi
+fi
+
+if [[ ${env} != "" ]]; then
+	pyenv uninstall ${env}
 fi
