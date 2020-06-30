@@ -21,6 +21,8 @@ if [[ ${action} == "-c" ]]; then
 		exit 1
 	fi
 
+	echo "Processing..."
+
 	bash create_project ${create_dir} ${python_version}
 
 elif [[ ${action} == "-d" ]]; then
