@@ -11,6 +11,16 @@ if [[ ${action} == "-c" ]]; then
 	echo_message "Input project dir." 30 && read create_dir
 	echo_message "Input Python version." 30 && read python_version
 
+	if [[ ${create_dir} == "" ]]; then
+		echo_message "You did not specify project dir." 32
+		exit 1
+	fi
+
+	if [[ ${python_version} == "" ]]; then
+		echo_message "You did not specify python version." 35
+		exit 1
+	fi
+
 	bash create_project ${create_dir} ${python_version}
 
 elif [[ ${action} == "-d" ]]; then
