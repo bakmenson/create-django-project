@@ -56,7 +56,7 @@ if ! ${is_python_version_installed}; then
 	{
 		pyenv install ${python_version}
 	} || {
-		echo "" && echo "Exit"
+		echo "" && echo "Exit" && exit 1
 	}
 
 	is_python_version_installed=true
