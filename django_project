@@ -27,7 +27,7 @@ if [[ ${action} == "-c" ]]; then
 
 elif [[ ${action} == "-d" ]]; then
 
-	echo_message "Input project dir." 30 && read remove_project_dir
+	echo_message "Input project dir." 30 && read project_to_remove
 
 	bash delete_project ${remove_project_dir}
 
