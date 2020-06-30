@@ -67,7 +67,7 @@ if ${is_python_version_installed} && ! ${is_virtualenv_exists}; then
 	mkdir ${project_dir} && cd ${project_dir}
 	pyenv local ${virtual_env}
 	echo "" && echo "Done"
-f
+fi
 
 pip install --upgrade pip
 
