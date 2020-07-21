@@ -20,7 +20,7 @@ else
 fi
 
 if [[ ${env} != "" ]]; then
-	pyenv uninstall ${env}
+	pyenv uninstall -f ${env}
 fi
 
 echo_message "Project removed." 20
