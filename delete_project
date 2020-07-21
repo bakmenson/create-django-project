@@ -14,7 +14,6 @@ if [[ -d ${project_to_remove} ]]; then
 	fi
 
 	rm -rf ${project_to_remove}
-	echo_message "Project removed." 20
 else
 	echo_message "Directory '"${project_to_remove}"' does not exist." 50
 	exit 1
@@ -23,3 +22,5 @@ fi
 if [[ ${env} != "" ]]; then
 	pyenv uninstall ${env}
 fi
+
+echo_message "Project removed." 20
