@@ -18,13 +18,11 @@
 3. Export PATH
   - For **bash**:
     ``` bash
-    $ echo 'export DP_ROOT="$HOME/.django_project"' >> ~/.bashrc
     $ echo 'export PATH="$PATH:/$HOME/.django_project"' >> ~/.bashrc
     ```
     
   - For **Zsh**:
     ``` zsh
-    $ echo 'export DP_ROOT="$HOME/.django_project"' >> ~/.zshrc
     $ echo 'export PATH="$PATH:/$HOME/.django_project"' >> ~/.zshrc
     ```
 
